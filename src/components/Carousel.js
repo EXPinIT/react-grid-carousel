@@ -106,9 +106,11 @@ const Carousel = ({
   dot,
   containerClassName = '',
   containerStyle = {},
-  children
+  children,
+  startPage,
+  pageChangeHandler
 }) => {
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(startPage)
   const [isHover, setIsHover] = useState(false)
   const [isTouch, setIsTouch] = useState(false)
   const [cols, setCols] = useState(colsProp)
@@ -135,6 +137,7 @@ const Carousel = ({
     setLoop(loop || loopProp)
     setAutoplay(autoplay || autoplayProp)
     setCurrentPage(0)
+    pageChangeHandler(0)
   }, [
     breakpointSetting,
     colsProp,
@@ -241,6 +244,7 @@ const Carousel = ({
         return page - 1
       }
 
+      pageChangeHandler(prevPage)
       return prevPage
     })
   }, [loop, page])
@@ -273,6 +277,7 @@ const Carousel = ({
             return loop ? 0 : p
           }
 
+          pageChangeHandler(nextPage)
           return nextPage
         })
       }
@@ -309,6 +314,7 @@ const Carousel = ({
   }, [isHover, isTouch, autoplayIntervalRef, startAutoplayInterval])
 
   const turnToPage = useCallback(page => {
+    pageChangeHandler(page)
     setCurrentPage(page)
   }, [])
 
