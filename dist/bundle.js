@@ -364,7 +364,7 @@ var Carousel = function Carousel(_ref20) {
       containerStyle = _ref20$containerStyle === void 0 ? {} : _ref20$containerStyle,
       children = _ref20.children,
       startPage = _ref20.startPage,
-      pageChangeHandler = _ref20.pageChangeHandler;
+      pageChangeHandlerProp = _ref20.pageChangeHandlerProp;
 
   var _useState = React.useState(startPage),
       _useState2 = _slicedToArray(_useState, 2),
@@ -422,6 +422,7 @@ var Carousel = function Carousel(_ref20) {
   var randomKey = React.useMemo(function () {
     return "".concat(Math.random(), "-").concat(Math.random());
   }, []);
+  var pageChangeHandler = React.useRef(pageChangeHandlerProp);
   React.useEffect(function () {
     smoothscroll.polyfill();
   }, []);
@@ -438,8 +439,11 @@ var Carousel = function Carousel(_ref20) {
     setGap(parseGap(gap || gapProp));
     setLoop(loop || loopProp);
     setAutoplay(autoplay || autoplayProp);
-    setCurrentPage(0);
-    pageChangeHandler(0);
+    setCurrentPage(currentPage);
+
+    if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+      pageChangeHandler.current(currentPage);
+    }
   }, [breakpointSetting, colsProp, rowsProp, gapProp, loopProp, autoplayProp, parseGap]);
   var handleRailWrapperResize = React.useCallback(function () {
     railWrapperRef.current && setRailWrapperWidth(railWrapperRef.current.offsetWidth);
@@ -512,10 +516,17 @@ var Carousel = function Carousel(_ref20) {
       var prevPage = p - 1;
 
       if (loop && prevPage < 0) {
+        if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+          pageChangeHandler.current(page - 1);
+        }
+
         return page - 1;
       }
 
-      pageChangeHandler(prevPage);
+      if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+        pageChangeHandler.current(prevPage);
+      }
+
       return prevPage;
     });
   }, [loop, page]);
@@ -541,10 +552,17 @@ var Carousel = function Carousel(_ref20) {
         var nextPage = p + 1;
 
         if (nextPage >= page) {
+          if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+            pageChangeHandler.current(loop ? 0 : p);
+          }
+
           return loop ? 0 : p;
         }
 
-        pageChangeHandler(nextPage);
+        if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+          pageChangeHandler.current(nextPage);
+        }
+
         return nextPage;
       });
     }
@@ -574,7 +592,10 @@ var Carousel = function Carousel(_ref20) {
     }
   }, [isHover, isTouch, autoplayIntervalRef, startAutoplayInterval]);
   var turnToPage = React.useCallback(function (page) {
-    pageChangeHandler(page);
+    if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+      pageChangeHandler.current(page);
+    }
+
     setCurrentPage(page);
   }, []);
   var handleHover = React.useCallback(function () {

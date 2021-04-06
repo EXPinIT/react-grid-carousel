@@ -108,7 +108,7 @@ const Carousel = ({
   containerStyle = {},
   children,
   startPage,
-  pageChangeHandler
+  pageChangeHandlerProp
 }) => {
   const [currentPage, setCurrentPage] = useState(startPage)
   const [isHover, setIsHover] = useState(false)
@@ -124,6 +124,7 @@ const Carousel = ({
   const autoplayIntervalRef = useRef(null)
   const breakpointSetting = useResponsiveLayout(responsiveLayout)
   const randomKey = useMemo(() => `${Math.random()}-${Math.random()}`, [])
+  const pageChangeHandler = useRef(pageChangeHandlerProp)
 
   useEffect(() => {
     smoothscroll.polyfill()
@@ -136,8 +137,11 @@ const Carousel = ({
     setGap(parseGap(gap || gapProp))
     setLoop(loop || loopProp)
     setAutoplay(autoplay || autoplayProp)
-    setCurrentPage(0)
-    pageChangeHandler(0)
+    setCurrentPage(currentPage)
+
+    if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+      pageChangeHandler.current(currentPage)
+    }
   }, [
     breakpointSetting,
     colsProp,
@@ -145,7 +149,7 @@ const Carousel = ({
     gapProp,
     loopProp,
     autoplayProp,
-    parseGap
+    parseGap,
   ])
 
   const handleRailWrapperResize = useCallback(() => {
@@ -241,10 +245,17 @@ const Carousel = ({
     setCurrentPage(p => {
       const prevPage = p - 1
       if (loop && prevPage < 0) {
+        if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+          pageChangeHandler.current(page - 1)
+        }
+
         return page - 1
       }
 
-      pageChangeHandler(prevPage)
+      if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+        pageChangeHandler.current(prevPage)
+      }
+
       return prevPage
     })
   }, [loop, page])
@@ -274,10 +285,17 @@ const Carousel = ({
         setCurrentPage(p => {
           const nextPage = p + 1
           if (nextPage >= page) {
+            if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+              pageChangeHandler.current(loop ? 0 : p)
+            }
+
             return loop ? 0 : p
           }
 
-          pageChangeHandler(nextPage)
+          if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+            pageChangeHandler.current(nextPage)
+          }
+
           return nextPage
         })
       }
@@ -314,7 +332,10 @@ const Carousel = ({
   }, [isHover, isTouch, autoplayIntervalRef, startAutoplayInterval])
 
   const turnToPage = useCallback(page => {
-    pageChangeHandler(page)
+    if (pageChangeHandler && pageChangeHandler.current && typeof pageChangeHandler.current === 'function') {
+      pageChangeHandler.current(page)
+    }
+
     setCurrentPage(page)
   }, [])
 
