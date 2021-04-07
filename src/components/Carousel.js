@@ -67,11 +67,10 @@ const ItemSet = styled.div`
 `
 
 const Dots = styled.div`
-  position: absolute;
+  position: static;
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: -12px;
   height: 10px;
   width: 100%;
   line-height: 10px;

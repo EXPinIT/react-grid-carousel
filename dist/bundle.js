@@ -322,7 +322,7 @@ Item, function (_ref16) {
   var gap = _ref17.gap;
   return "-".concat(gap, "px");
 });
-var Dots = styled.div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  bottom: -12px;\n  height: 10px;\n  width: 100%;\n  line-height: 10px;\n  text-align: center;\n\n  @media screen and (max-width: ", "px) {\n    display: none;\n  }\n"])), function (_ref18) {
+var Dots = styled.div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n  position: static;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 10px;\n  width: 100%;\n  line-height: 10px;\n  text-align: center;\n\n  @media screen and (max-width: ", "px) {\n    display: none;\n  }\n"])), function (_ref18) {
   var mobileBreakpoint = _ref18.mobileBreakpoint;
   return mobileBreakpoint;
 });
