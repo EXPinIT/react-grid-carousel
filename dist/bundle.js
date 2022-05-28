@@ -364,7 +364,7 @@ var Carousel = function Carousel(_ref20) {
       containerStyle = _ref20$containerStyle === void 0 ? {} : _ref20$containerStyle,
       children = _ref20.children,
       startPage = _ref20.startPage,
-      pageChangeHandlerProp = _ref20.pageChangeHandlerProp;
+      pageChangeHandlerProp = _ref20.pageChangeHandler;
 
   var _useState = React.useState(startPage),
       _useState2 = _slicedToArray(_useState, 2),

@@ -107,7 +107,7 @@ const Carousel = ({
   containerStyle = {},
   children,
   startPage,
-  pageChangeHandlerProp
+  pageChangeHandler: pageChangeHandlerProp
 }) => {
   const [currentPage, setCurrentPage] = useState(startPage)
   const [isHover, setIsHover] = useState(false)
