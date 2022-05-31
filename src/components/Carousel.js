@@ -105,6 +105,7 @@ const Carousel = ({
   dot,
   containerClassName = '',
   containerStyle = {},
+  itemSetStyle = {},
   children,
   startPage,
   pageChangeHandler: pageChangeHandlerProp
@@ -383,6 +384,7 @@ const Carousel = ({
               rows={rows}
               gap={gap}
               mobileBreakpoint={mobileBreakpoint}
+              style={itemSetStyle}
             >
               {set}
             </ItemSet>
@@ -462,7 +464,8 @@ Carousel.propTypes = {
     PropTypes.elementType
   ]),
   containerClassName: PropTypes.string,
-  containerStyle: PropTypes.object
+  containerStyle: PropTypes.object,
+  itemSetStyle: PropTypes.object
 }
 
 Carousel.Item = ({ children }) => children

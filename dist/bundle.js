@@ -362,6 +362,8 @@ var Carousel = function Carousel(_ref20) {
       containerClassName = _ref20$containerClass === void 0 ? '' : _ref20$containerClass,
       _ref20$containerStyle = _ref20.containerStyle,
       containerStyle = _ref20$containerStyle === void 0 ? {} : _ref20$containerStyle,
+      _ref20$itemSetStyle = _ref20.itemSetStyle,
+      itemSetStyle = _ref20$itemSetStyle === void 0 ? {} : _ref20$itemSetStyle,
       children = _ref20.children,
       startPage = _ref20.startPage,
       pageChangeHandlerProp = _ref20.pageChangeHandler;
@@ -639,7 +641,8 @@ var Carousel = function Carousel(_ref20) {
       cols: cols,
       rows: rows,
       gap: gap,
-      mobileBreakpoint: mobileBreakpoint
+      mobileBreakpoint: mobileBreakpoint,
+      style: itemSetStyle
     }, set);
   }))), showDots && /*#__PURE__*/React__default.createElement(Dots, {
     mobileBreakpoint: mobileBreakpoint
@@ -694,7 +697,8 @@ Carousel.propTypes = {
   arrowRight: PropTypes.oneOfType([PropTypes.node, PropTypes.element, PropTypes.elementType]),
   dot: PropTypes.oneOfType([PropTypes.node, PropTypes.element, PropTypes.elementType]),
   containerClassName: PropTypes.string,
-  containerStyle: PropTypes.object
+  containerStyle: PropTypes.object,
+  itemSetStyle: PropTypes.object
 };
 
 Carousel.Item = function (_ref22) {
