@@ -21,7 +21,7 @@
     "url": "git@github.com:x3388638/react-grid-carousel.git",
     "type": "git"
   },
-  "main": "dist/bundle.js",
+  "main": "index.js",
   "scripts": {
     "dev": "npm run build && webpack-dev-server --config examples/webpack.config.js",
     "build": "rollup -c",
